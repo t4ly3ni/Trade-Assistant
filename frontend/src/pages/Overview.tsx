@@ -123,7 +123,7 @@ export default function Overview() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <Activity className="h-8 w-8 animate-spin text-blue-600" />
+        <Activity className="h-8 w-8 animate-spin" style={{ color: 'var(--accent)' }} />
       </div>
     );
   }
@@ -131,11 +131,11 @@ export default function Overview() {
   if (error) {
     return (
       <div className="flex flex-col items-center justify-center h-64 space-y-4">
-        <WifiOff className="h-16 w-16 text-red-400" />
-        <p className="text-red-600 text-center max-w-md">{error}</p>
+        <WifiOff className="h-16 w-16" style={{ color: 'var(--danger)' }} />
+        <p className="text-center max-w-md" style={{ color: 'var(--danger)' }}>{error}</p>
         <button
           onClick={() => { setLoading(true); fetchData(); }}
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          className="btn-primary px-6 py-2 rounded-lg transition-colors"
         >
           Réessayer
         </button>
@@ -149,11 +149,11 @@ export default function Overview() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">Vue d'Ensemble du Marché</h1>
-          <p className="text-slate-600 mt-2">Bourse des Valeurs Mobilières de Tunis</p>
+          <h1 className="text-3xl font-bold" style={{ color: 'var(--content)' }}>Vue d'Ensemble du Marché</h1>
+          <p className="mt-2" style={{ color: 'var(--content-secondary)' }}>Bourse des Valeurs Mobilières de Tunis</p>
         </div>
         <div className="flex items-center space-x-3">
-          <div className="flex items-center text-xs text-slate-500">
+          <div className="flex items-center text-xs" style={{ color: 'var(--content-tertiary)' }}>
             <Wifi className="h-3 w-3 text-green-500 mr-1" />
             <span>Live • {lastUpdate}</span>
           </div>
@@ -202,12 +202,12 @@ export default function Overview() {
         <Card>
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm font-medium text-slate-500">Résumé du Marché</p>
-              <p className="text-3xl font-bold text-slate-900 mt-2">{summary?.total || 0}</p>
-              <p className="text-xs text-slate-500 mt-2">valeurs cotées</p>
+              <p className="text-sm font-medium" style={{ color: 'var(--content-tertiary)' }}>Résumé du Marché</p>
+              <p className="text-3xl font-bold mt-2" style={{ color: 'var(--content)' }}>{summary?.total || 0}</p>
+              <p className="text-xs mt-2" style={{ color: 'var(--content-tertiary)' }}>valeurs cotées</p>
             </div>
-            <div className="p-3 bg-blue-50 rounded-lg">
-              <Activity className="h-6 w-6 text-blue-600" />
+            <div className="p-3 rounded-lg" style={{ backgroundColor: 'var(--accent-subtle)' }}>
+              <Activity className="h-6 w-6" style={{ color: 'var(--accent)' }} />
             </div>
           </div>
         </Card>
@@ -215,7 +215,7 @@ export default function Overview() {
         <Card>
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm font-medium text-slate-500">Tendance</p>
+              <p className="text-sm font-medium" style={{ color: 'var(--content-tertiary)' }}>Tendance</p>
               <div className="flex items-center space-x-3 mt-2">
                 <div className="flex items-center">
                   <TrendingUp className="h-4 w-4 text-green-600 mr-1" />
@@ -226,7 +226,7 @@ export default function Overview() {
                   <span className="text-lg font-bold text-red-600">{summary?.baisses || 0}</span>
                 </div>
               </div>
-              <p className="text-xs text-slate-500 mt-2">{summary?.inchanges || 0} inchangées</p>
+              <p className="text-xs mt-2" style={{ color: 'var(--content-tertiary)' }}>{summary?.inchanges || 0} inchangées</p>
             </div>
             <div className="p-3 bg-green-50 rounded-lg">
               <BarChart3 className="h-6 w-6 text-green-600" />
@@ -237,11 +237,11 @@ export default function Overview() {
         <Card>
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm font-medium text-slate-500">Volume Total</p>
-              <p className="text-2xl font-bold text-slate-900 mt-2">
+              <p className="text-sm font-medium" style={{ color: 'var(--content-tertiary)' }}>Volume Total</p>
+              <p className="text-2xl font-bold mt-2" style={{ color: 'var(--content)' }}>
                 {summary ? (summary.volume_total / 1_000_000).toFixed(1) : '0'} M
               </p>
-              <p className="text-xs text-slate-500 mt-2">
+              <p className="text-xs mt-2" style={{ color: 'var(--content-tertiary)' }}>
                 {summary?.actives || 0} valeurs actives
               </p>
             </div>
@@ -254,9 +254,9 @@ export default function Overview() {
         <Card>
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm font-medium text-slate-500">Alertes Actives</p>
-              <p className="text-3xl font-bold text-slate-900 mt-2">{anomalies?.total_alerts || 0}</p>
-              <p className="text-xs text-slate-500 mt-2">anomalies détectées</p>
+              <p className="text-sm font-medium" style={{ color: 'var(--content-tertiary)' }}>Alertes Actives</p>
+              <p className="text-3xl font-bold mt-2" style={{ color: 'var(--content)' }}>{anomalies?.total_alerts || 0}</p>
+              <p className="text-xs mt-2" style={{ color: 'var(--content-tertiary)' }}>anomalies détectées</p>
             </div>
             <div className="p-3 bg-orange-50 rounded-lg">
               <AlertCircle className="h-6 w-6 text-orange-600" />
@@ -270,24 +270,24 @@ export default function Overview() {
         <Card title="Top 5 Hausse" subtitle="Plus fortes hausses du jour">
           <div className="space-y-3">
             {analysis?.top_hausse.length === 0 && (
-              <p className="text-center text-slate-500 py-6">Aucune hausse significative</p>
+              <p className="text-center py-6" style={{ color: 'var(--content-tertiary)' }}>Aucune hausse significative</p>
             )}
             {analysis?.top_hausse.map((stock, index) => (
               <div
                 key={stock.ticker + index}
-                className="flex items-center justify-between p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors"
+                className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-100 transition-colors" style={{ backgroundColor: 'var(--surface-secondary)' }}
               >
                 <div className="flex items-center space-x-3">
                   <div className="flex items-center justify-center w-8 h-8 bg-green-100 text-green-700 rounded-full font-bold text-sm">
                     {index + 1}
                   </div>
                   <div>
-                    <p className="font-semibold text-slate-900">{stock.ticker}</p>
-                    <p className="text-xs text-slate-500 truncate max-w-[180px]">{stock.valeur}</p>
+                    <p className="font-semibold" style={{ color: 'var(--content)' }}>{stock.ticker}</p>
+                    <p className="text-xs truncate max-w-[180px]" style={{ color: 'var(--content-tertiary)' }}>{stock.valeur}</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="font-semibold text-slate-900">{stock.dernier.toFixed(3)} TND</p>
+                  <p className="font-semibold" style={{ color: 'var(--content)' }}>{stock.dernier.toFixed(3)} TND</p>
                   <div className="flex items-center justify-end">
                     <TrendingUp className="h-3 w-3 text-green-600 mr-1" />
                     <span className="text-sm font-semibold text-green-600">
@@ -303,24 +303,24 @@ export default function Overview() {
         <Card title="Top 5 Baisse" subtitle="Plus fortes baisses du jour">
           <div className="space-y-3">
             {analysis?.top_baisse.length === 0 && (
-              <p className="text-center text-slate-500 py-6">Aucune baisse significative</p>
+              <p className="text-center py-6" style={{ color: 'var(--content-tertiary)' }}>Aucune baisse significative</p>
             )}
             {analysis?.top_baisse.map((stock, index) => (
               <div
                 key={stock.ticker + index}
-                className="flex items-center justify-between p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors"
+                className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-100 transition-colors" style={{ backgroundColor: 'var(--surface-secondary)' }}
               >
                 <div className="flex items-center space-x-3">
                   <div className="flex items-center justify-center w-8 h-8 bg-red-100 text-red-700 rounded-full font-bold text-sm">
                     {index + 1}
                   </div>
                   <div>
-                    <p className="font-semibold text-slate-900">{stock.ticker}</p>
-                    <p className="text-xs text-slate-500 truncate max-w-[180px]">{stock.valeur}</p>
+                    <p className="font-semibold" style={{ color: 'var(--content)' }}>{stock.ticker}</p>
+                    <p className="text-xs truncate max-w-[180px]" style={{ color: 'var(--content-tertiary)' }}>{stock.valeur}</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="font-semibold text-slate-900">{stock.dernier.toFixed(3)} TND</p>
+                  <p className="font-semibold" style={{ color: 'var(--content)' }}>{stock.dernier.toFixed(3)} TND</p>
                   <div className="flex items-center justify-end">
                     <TrendingDown className="h-3 w-3 text-red-600 mr-1" />
                     <span className="text-sm font-semibold text-red-600">
@@ -337,7 +337,7 @@ export default function Overview() {
       {/* Sentiment Analysis */}
       <Card title="Analyse de Sentiment" subtitle="Sentiment des actualités par valeur">
         {!sentiments || Object.keys(sentiments.results).length === 0 ? (
-          <p className="text-center text-slate-500 py-8">Aucune donnée de sentiment disponible</p>
+          <p className="text-center py-8" style={{ color: 'var(--content-tertiary)' }}>Aucune donnée de sentiment disponible</p>
         ) : (
           <div className="space-y-3">
             {Object.entries(sentiments.results).map(([symbol, data]) => {
@@ -371,8 +371,8 @@ export default function Overview() {
                         <SentimentIcon className={`h-5 w-5 ${sentimentColor}`} />
                       </div>
                       <div>
-                        <p className="font-semibold text-slate-900">{symbol}</p>
-                        <p className="text-xs text-slate-500">
+                        <p className="font-semibold" style={{ color: 'var(--content)' }}>{symbol}</p>
+                        <p className="text-xs" style={{ color: 'var(--content-tertiary)' }}>
                           {data.articles_analyzed} article{data.articles_analyzed > 1 ? 's' : ''} analysé{data.articles_analyzed > 1 ? 's' : ''}
                         </p>
                       </div>
@@ -381,7 +381,7 @@ export default function Overview() {
                       <p className={`text-lg font-bold ${sentimentColor}`}>
                         {data.overall_score > 0 ? '+' : ''}{data.overall_score.toFixed(2)}
                       </p>
-                      <p className="text-xs text-slate-500">
+                      <p className="text-xs" style={{ color: 'var(--content-tertiary)' }}>
                         Confiance: {(data.confidence * 100).toFixed(0)}%
                       </p>
                     </div>
@@ -419,7 +419,7 @@ export default function Overview() {
                     </div>
                   )}
                   {data.overall_explanation && (
-                    <p className="text-xs text-slate-600 mt-2 line-clamp-2">{data.overall_explanation}</p>
+                    <p className="text-xs mt-2 line-clamp-2" style={{ color: 'var(--content-secondary)' }}>{data.overall_explanation}</p>
                   )}
                 </div>
               );
@@ -432,7 +432,7 @@ export default function Overview() {
       <Card title="Alertes Récentes" subtitle="Anomalies détectées par le système">
         <div className="space-y-3">
           {(!anomalies || anomalies.alerts.length === 0) ? (
-            <p className="text-center text-slate-500 py-8">Aucune anomalie détectée</p>
+            <p className="text-center py-8" style={{ color: 'var(--content-tertiary)' }}>Aucune anomalie détectée</p>
           ) : (
             anomalies.alerts.slice(0, 5).map((alert, idx) => (
               <div
