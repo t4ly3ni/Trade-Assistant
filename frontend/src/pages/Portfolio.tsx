@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Card from '../components/Card';
+import ChatBot from '../components/ChatBot';
 import { Wallet, TrendingUp, TrendingDown, Activity, DollarSign, PieChart } from 'lucide-react';
 import { getPortfolio, getPortfolioPositions } from '../lib/api';
 
@@ -314,6 +315,16 @@ export default function Portfolio() {
           </div>
         </div>
       </Card>
+
+      {/* AI Chatbot */}
+      <ChatBot
+        investorName={portfolio.name.split(' ')[0] || 'Ahmed'}
+        investorProfile={
+          portfolio.risk_profile === 'conservative' ? 'Conservateur' :
+          portfolio.risk_profile === 'moderate' ? 'Modere' : 'Dynamique'
+        }
+        investmentAmount={portfolio.initial_capital}
+      />
     </div>
   );
 }

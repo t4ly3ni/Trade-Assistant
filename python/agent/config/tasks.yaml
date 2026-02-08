@@ -1,0 +1,136 @@
+assess_investor_profile:
+  description: >
+    Analyze the investor questionnaire responses and determine the risk
+    profile. The investor details are:
+    - Name: {investor_name}
+    - Age: {investor_age}
+    - Occupation: {investor_occupation}
+    - Investment amount: {investment_amount} TND
+    - Investment horizon: {investment_horizon}
+    - Risk tolerance answers: {risk_answers}
+    
+    Classify the investor into one of three profiles:
+    1. Conservateur — risk-averse, prefers capital preservation
+    2. Modéré — balanced, accepts moderate risk for moderate returns
+    3. Dynamique — growth-oriented, comfortable with higher volatility
+    
+    Provide a clear explanation of why this profile was chosen.
+  expected_output: >
+    A JSON object with:
+    - profile: one of "Conservateur", "Modéré", "Dynamique"
+    - score: risk score from 1-10
+    - explanation: why this profile was assigned
+    - recommended_allocation: percentage split (actions_stables, obligations, liquidite, actions_croissance)
+  agent: profile_analyst
+
+analyze_market_data:
+  description: >
+    Fetch and analyze the current BVMT market data. Identify:
+    1. Overall market trend (bullish/bearish/neutral)
+    2. Top 5 gainers and top 5 losers
+    3. Most actively traded stocks by volume
+    4. Stocks suitable for a "{investor_profile}" investor profile
+    5. Any stocks with unusual activity
+    
+    Focus on stocks in groups 11 (principal market) and 12 (alternative).
+    The investor has {investment_amount} TND to invest.
+  expected_output: >
+    A detailed market analysis report including:
+    - Market overview (trend, total volume, breadth)
+    - Top gainers and losers with percentages
+    - List of 5-10 recommended stocks for the investor profile
+    - For each recommended stock: ticker, current price, variation, volume, and a brief rationale
+  agent: market_analyst
+
+research_stock_news:
+  description: >
+    Research the latest news and sentiment for the following stocks: {stock_tickers}.
+    Also search for general news about the Tunisian stock market (BVMT),
+    the Tunisian economy, and any sector-specific developments.
+    
+    For each stock, determine:
+    1. Recent news headlines and their sentiment (positive/negative/neutral)
+    2. Any catalysts (new contracts, earnings, regulatory changes)
+    3. Overall sentiment score
+    
+    Pay special attention to {focus_stock} as the investor is considering it.
+  expected_output: >
+    A news sentiment report with:
+    - Overall market sentiment summary
+    - Per-stock sentiment analysis with scores and key headlines
+    - Identified catalysts and their potential impact
+    - News-based recommendation (bullish/bearish/neutral) for each stock
+  agent: news_researcher
+
+detect_anomalies:
+  description: >
+    Run anomaly detection on the current BVMT market data to identify:
+    1. Volume spikes (z-score > 3σ)
+    2. Price anomalies (variation > 5%)
+    3. Order book imbalances (ratio > 5x)
+    4. Spread anomalies
+    
+    Flag any stocks from the investor's watchlist ({stock_tickers}) that
+    show suspicious activity. Assess whether detected anomalies represent
+    risks or opportunities.
+  expected_output: >
+    An anomaly report with:
+    - Total number of alerts by severity (CRITICAL, WARNING, INFO)
+    - Detailed alert list with stock name, type, severity, and explanation
+    - Risk assessment for the investor's stocks of interest
+    - Clear recommendation on whether any flagged stocks should be avoided
+  agent: anomaly_detector
+
+build_portfolio:
+  description: >
+    Based on the complete analysis, build a recommended portfolio for the
+    investor with the following constraints:
+    - Risk profile: {investor_profile}
+    - Capital: {investment_amount} TND
+    - Allocation guidelines from profile assessment
+    - Market conditions from market analysis
+    - Sentiment signals from news research
+    - Anomaly alerts from surveillance
+    
+    The investor is particularly interested in {focus_stock}.
+    Provide specific buy recommendations with:
+    - Stock ticker and name
+    - Number of shares to buy
+    - Current price and total cost
+    - Rationale for inclusion
+    - Expected return (5-day forecast)
+    - Risk level
+  expected_output: >
+    A complete portfolio recommendation including:
+    - Asset allocation breakdown (percentages and TND amounts)
+    - Specific stock picks with quantities and prices
+    - Total invested vs. cash reserve
+    - Expected portfolio return (5-day, 30-day)
+    - Risk warnings and disclaimers
+    - Step-by-step execution plan
+  agent: portfolio_advisor
+
+explain_recommendation:
+  description: >
+    The investor ({investor_name}) has asked: "{investor_question}"
+    
+    Using the full analysis context (market data, news sentiment, anomaly
+    detection, and portfolio recommendation), provide a clear, simple
+    explanation that a beginner investor can understand.
+    
+    Context about the stock in question: {focus_stock}
+    Investor profile: {investor_profile}
+    
+    Make sure to:
+    1. Answer the specific question directly
+    2. Reference actual data (prices, percentages, news)
+    3. Explain any financial terms used
+    4. End with a clear actionable recommendation
+  expected_output: >
+    A friendly, jargon-free explanation in French that:
+    - Directly answers the investor's question
+    - References specific data points and news
+    - Explains the recommendation logic
+    - Includes a confidence level
+    - Ends with a clear next step for the investor
+  agent: investment_chatbot

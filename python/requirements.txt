@@ -1,0 +1,13 @@
+# ─── BVMT Market API ─────────────────────────────────────────
+# Core
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.6.0
+requests>=2.31.0
+
+# Legacy scripts (optional)
+pandas>=2.2.0
+
+# ─── CrewAI Investment Advisor Agent ─────────────────────────
+crewai[tools]>=0.105.0
+pyyaml>=6.0
